@@ -76,17 +76,12 @@
         </a>
       </div>
     </div>
-    <NavigationTop class="a-black" />
-    <NavigationBottom class="a-black" />
   </section>
 </template>
 
 <script>
-import NavigationTop from "../components/NavigationTop.vue";
-import NavigationBottom from "../components/NavigationBottom.vue";
-import Map from "../assets/img/bg-map2.png";
 export default {
-  components: { NavigationTop, NavigationBottom },
+  layout: 'contact',
   data() {
     return {
       Map,

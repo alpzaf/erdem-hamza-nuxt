@@ -1,8 +1,5 @@
 <template>
   <section class="w-100 h-md-100 h-xs-100 h-100">
-    <NavigationTop />
-    <NavigationBottom />
-    <!-- 2 li -->
     <div class="row no-gutters w-100 h-xs-100 h-md-100 h-100">
       <div
         v-for="a in projects"
@@ -10,7 +7,7 @@
         class="col-lg-6 col-12 bg-5 layout has-background d-flex justify-content-center align-items-center h-100 h-xs-100 h-md-100"
       >
         <img
-          v-if="window.innerWidth < 767"
+          v-if="size"
           :src="`https://www.erdemhamza.com.tr/storage/projects/${a.mobile_picture}`"
           alt=""
           class="img-fluid"
@@ -29,38 +26,48 @@
           }}</a>
         </div>
         <NuxtLink
-          :to="{ name: 'Project', params: { id: a.id } }"
+          :to="{ name: 'Project', params: { id: a.id }, path: 'project' }"
           class="r-links"
         ></NuxtLink>
+        <!--
         <Loading
           :active.sync="isloading"
           :blur="blur"
           :is-full-page="fullPage"
         />
+        -->
       </div>
     </div>
   </section>
+
 </template>
 
 <script>
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
-import NavigationTop from "../components/NavigationTop.vue";
-import NavigationBottom from "../components/NavigationBottom.vue";
 export default {
-  components: { NavigationTop, NavigationBottom, Loading },
   data() {
     return {
       projectId: this.$route.params.id,
       projects: [],
       isloading: true,
       fullPage: false,
-      window,
       blur: "5px",
+      items: [],
+      size: Boolean
     };
   },
   mounted() {
     document.title = "Projects | ERDEM HAMZA";
+    window.addEventListener("DOMContentLoaded", this.loaded, {
+      once: true,
+    });
+    document.querySelectorAll(".layout").forEach(item => {
+      this.items.push(item)
+    });
+    if(window.innerWidth > 767) {
+      this.size = true
+    } else {
+      this.size = false
+    }
   },
   async created() {
     try {
@@ -77,17 +84,13 @@ export default {
     }
 
     this.$nextTick(() => {
-      const items = document.querySelectorAll(".layout");
-      const itemsLength = items.length;
-      if (this.projects.length % 4 == 3 || this.projects.length % 4 == 1) {
-        items[itemsLength - 1].classList.add("layout-last");
-      } else if (this.projects.length % 4 == 2) {
-        items[itemsLength - 1].classList.add("layout-divide");
-        items[itemsLength - 2].classList.add("layout-divide");
+      const itemsLength = this.items.length;
+      if (this.projects.length % 4 === 3 || this.projects.length % 4 === 1) {
+        this.items[itemsLength - 1].classList.add("layout-last");
+      } else if (this.projects.length % 4 === 2) {
+        this.items[itemsLength - 1].classList.add("layout-divide");
+        this.items[itemsLength - 2].classList.add("layout-divide");
       }
-      window.addEventListener("DOMContentLoaded", this.loaded, {
-        once: true,
-      });
     });
   },
   methods: {
