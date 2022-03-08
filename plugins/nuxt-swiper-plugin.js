@@ -33,5 +33,3 @@ SwiperClass.use({
     }
   }
 })
-
-/* var swiper = new Swiper(".swiper-container", swiperOptions); */
