@@ -3,9 +3,8 @@
     class="bottom-bar d-flex justify-content-between w-100 px-4 py-3 px-lg-5 py-lg-4"
   >
     <div>
-      <router-link to="/contact" class="text-white responsive-fs"
-        >CONTACT</router-link
-      >
+      <NuxtLink to="/contact" class="text-white responsive-fs"
+        >CONTACT</NuxtLink>
     </div>
     <div>
       <a

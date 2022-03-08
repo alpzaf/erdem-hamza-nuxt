@@ -5,9 +5,10 @@
       <swiper
         ref="carousel"
         class="swiper"
+        :grabCursor="true"
         :options="swiperOptions"
       >
-        <swiper-slide v-for="image in sources" :key="image.id">
+        <swiper-slide v-for="image in sources" :key="image.id" class="position-relative overflow-hidden h-100">
           <div
             :style="{
             backgroundImage: `url(https://www.erdemhamza.com.tr/storage/projects/${image.name})`,
@@ -23,8 +24,13 @@
 </template>
 
 <script>
+import { directive } from 'vue-awesome-swiper'
+
 export default {
   name: 'SwiperNuxt',
+  directives: {
+    swiper: directive
+  },
   layout: 'projectView',
   data() {
     return {
@@ -33,8 +39,10 @@ export default {
       sources: {},
       window: Number,
       swiperOptions: {
-        loop: true,
-        slidesPerView: 1,
+        loop:true,
+        slidesPerView: "1",
+        speed:1000,
+        watchSlidesProgress:true,
         centeredSlides: true,
         spaceBetween: 0,
         navigation: {
@@ -63,15 +71,19 @@ export default {
       console.log(error);
     }
   },
-  fetchOnServer: true,
-  mounted() {
-    document.title = "Project | ERDEM HAMZA";
-    this.window = window.innerWidth
-  }
+  head(){
+    return {
+      title: "Project | ERDEM HAMZA"
+    }
+  },
+  fetchOnServer: true
 };
 </script>
 
 <style>
+.swiper-container{
+  height: 100%;
+}
 .hv-100 {
   height: 100vh;
 }

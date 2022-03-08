@@ -4,20 +4,19 @@
   >
     <div class="logo-holder">
       <!-- <img src="img/logo/logo-2.svg" class="logo-top" alt="Erdem Hamza Architect + Interior"> -->
-      <router-link to="/" class="text-white d-block responsive-fs mg-n10">
+      <NuxtLink to="/" class="text-white d-block responsive-fs mg-n10">
         <div>
           <h1 class="line-height-5 responsive-fs">ERDEM HAMZA</h1>
           <h1 class="line-height-5 responsive-fs">ARCHITECT +</h1>
           <h1 class="line-height-5 responsive-fs">INTERIOR</h1>
         </div>
-      </router-link>
+      </NuxtLink>
     </div>
     <div class="projects">
-      <router-link
+      <NuxtLink
         to="/projects"
         class="text-white text-right d-block responsive-fs line-height-5 mg-n10"
-        >PROJECTS</router-link
-      >
+        >PROJECTS</NuxtLink>
     </div>
   </div>
 </template>

@@ -8,14 +8,14 @@
       >
         <img
           v-if="size"
-          :src="`https://www.erdemhamza.com.tr/storage/projects/${a.mobile_picture}`"
+          :src="`https://www.erdemhamza.com.tr/storage/projects/${a.desktop_picture}`"
           alt=""
           class="img-fluid"
           @load="isloading = false"
         />
         <img
           v-else
-          :src="`https://www.erdemhamza.com.tr/storage/projects/${a.desktop_picture}`"
+          :src="`https://www.erdemhamza.com.tr/storage/projects/${a.mobile_picture}`"
           alt=""
           class="img-fluid"
           @load="isloading = false"
@@ -26,7 +26,7 @@
           }}</a>
         </div>
         <NuxtLink
-          :to="{ name: 'Project', params: { id: a.id }, path: 'project' }"
+          :to="{ name: 'project-id', params: { id: a.id }}"
           class="r-links"
         ></NuxtLink>
         <!--
@@ -44,6 +44,11 @@
 
 <script>
 export default {
+  loading: {
+    color: '#000000',
+    height: '10px',
+    throttle: 0
+  },
   data() {
     return {
       projectId: this.$route.params.id,
@@ -55,21 +60,7 @@ export default {
       size: Boolean
     };
   },
-  mounted() {
-    document.title = "Projects | ERDEM HAMZA";
-    window.addEventListener("DOMContentLoaded", this.loaded, {
-      once: true,
-    });
-    document.querySelectorAll(".layout").forEach(item => {
-      this.items.push(item)
-    });
-    if(window.innerWidth > 767) {
-      this.size = true
-    } else {
-      this.size = false
-    }
-  },
-  async created() {
+  async fetch() {
     try {
       const response = await fetch(
         "https://admin.erdemhamza.com.tr/api/projects",
@@ -92,6 +83,18 @@ export default {
         this.items[itemsLength - 2].classList.add("layout-divide");
       }
     });
+  },
+  fetchOnServer: true,
+  fetchDelay: 200,
+  mounted() {
+    document.title = "Projects | ERDEM HAMZA";
+    window.addEventListener("DOMContentLoaded", this.loaded, {
+      once: true,
+    });
+    document.querySelectorAll(".layout").forEach(item => {
+      this.items.push(item)
+    });
+    this.size = window.innerWidth > 767;
   },
   methods: {
     uid(e) {
@@ -208,5 +211,9 @@ html {
   height: 100%;
   cursor: url("https://demo.maharethane.com/erdem-hamza8/img/view-project-100.png"),
     auto;
+}
+#__nuxt,
+#__layout{
+  height: 100%;
 }
 </style>
