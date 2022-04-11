@@ -68,10 +68,7 @@
           target="_blank"
         >
           <div
-            :style="{
-              backgroundImage: `url(https://demo.maharethane.com/erdem-hamza8/img/bg-map.png)`,
-            }"
-            class="has-background h-100 d-flex justify-content-center align-items-center"
+            class="has-background bg-map h-100 d-flex justify-content-center align-items-center"
           ></div>
         </a>
       </div>
@@ -113,7 +110,9 @@ export default {
     text-align: right;
   }
 }
-
+.bg-map{
+  background-image: url("~assets/images/bg-map2.png");
+}
 @media (max-width: 1366px) {
   body .lead {
     font-size: 0.85rem;

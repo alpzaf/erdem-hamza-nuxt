@@ -15,7 +15,6 @@ SwiperClass.use({
         swiper.slides[i].querySelector(".has-background").style.transform =
           "translate3d(" + innerTranslate + "px, 0, 0)";
       }
-      console.log(this)
     },
     touchStart() {
       const swiper = this;

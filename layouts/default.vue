@@ -21,6 +21,9 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.resizeHandler);
+    window.addEventListener("DOMContentLoaded", this.resizeHandler, {
+      once: true,
+    });
   },
   methods: {
     resizeHandler() {

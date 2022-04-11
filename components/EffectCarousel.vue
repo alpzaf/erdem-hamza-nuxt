@@ -1,5 +1,5 @@
 <template>
-  <section id="section" class="w-100 h-100">
+  <section>
     <client-only>
       <button class="prev-btn slick-arrow"></button>
       <swiper
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { directive } from 'vue-awesome-swiper'
+import {directive} from "vue-awesome-swiper";
 
 export default {
   name: 'SwiperNuxt',
@@ -33,9 +33,6 @@ export default {
   layout: 'projectView',
   data() {
     return {
-      title: "",
-      projectId: this.$route.params.id,
-      sources: {},
       windowWidth: Number,
       swiperOptions: {
         loop:true,
@@ -53,9 +50,8 @@ export default {
   },
   async fetch() {
     try {
-      const response = await fetch(
-        "https://admin.erdemhamza.com.tr/api/projects"
-      );
+      const api = "https://admin.erdemhamza.com.tr/api/projects"
+      const response = await fetch(api);
       const data = await response.json();
       if (this.windowWidth > 767) {
         this.sources = JSON.parse(JSON.stringify(data.data[this.projectId - 2].desktopImages)
@@ -68,22 +64,11 @@ export default {
       throw new Error(error);
     }
   },
-  mounted() {
-    this.windowWidth = window.innerWidth
-    document.title = "Project | ERDEM HAMZA"
-  },
   fetchOnServer: true
 };
 </script>
 
 <style>
-.swiper-container{
-  height: 100%;
-}
-.hv-100 {
-  height: 100vh;
-}
-
 .has-background {
   position: relative;
   background-position: center;
